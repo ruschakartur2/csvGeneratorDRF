@@ -19,5 +19,5 @@ data_columns_detail = SchemaViewSet.as_view(
 
 urlpatterns = [
     path('', data_columns_list),
-    path('<int:pk>', data_columns_detail)
+    path('<int:pk>/', data_columns_detail)
 ]

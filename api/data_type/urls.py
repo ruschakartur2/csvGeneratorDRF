@@ -19,5 +19,5 @@ data_type_detail = DataTypeViewSet.as_view(
 
 urlpatterns = [
     path('', data_type_list),
-    path('<int:pk>', data_type_detail)
+    path('<int:pk>/', data_type_detail)
 ]

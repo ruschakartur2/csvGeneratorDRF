@@ -7,3 +7,4 @@ from core.models import SchemaColumn
 class SchemaColumnViewSet(viewsets.ModelViewSet):
     queryset = SchemaColumn.objects.all()
     serializer_class = SchemaColumnSerializer
+

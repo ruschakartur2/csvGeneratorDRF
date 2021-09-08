@@ -34,6 +34,7 @@ class DataTypeSerializer(serializers.ModelSerializer):
         for parameter_data in parameters_data:
             parameter = parameters.pop(0)
             parameter.name = parameter_data.get('name', parameter.name)
+            parameter.value = parameter_data.get('value', parameter.value)
             parameter.data_type = parameter_data.get('data_type', parameter.data_type)
             parameter.save()
 

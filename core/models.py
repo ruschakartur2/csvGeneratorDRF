@@ -67,3 +67,4 @@ class DataSet(models.Model):
     status = models.CharField(max_length=255, choices=STATUS, default='PROCESSING')
     rows = models.IntegerField()
     created = models.DateTimeField(auto_now=True)
+    filepath = models.CharField(max_length=255, blank=True, null=True)

@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 
 from api.column.serializers import SchemaColumnSerializer
@@ -5,11 +7,11 @@ from core.models import Schema, SchemaColumn
 
 
 class SchemaSerializer(serializers.ModelSerializer):
-    columns = SchemaColumnSerializer(many=True)
+    columns = SchemaColumnSerializer(many=True, required=True)
 
     class Meta:
         model = Schema
-        fields = ['id', 'name', 'column_separator', 'string_character', 'columns']
+        fields = ['id', 'name', 'modified', 'column_separator', 'string_character', 'columns']
 
     def create(self, validated_data):
         columns_data = validated_data.pop('columns')
@@ -24,6 +26,7 @@ class SchemaSerializer(serializers.ModelSerializer):
         columns = list(columns)
 
         instance.name = validated_data.get('name', instance.name)
+        instance.modified = datetime.datetime.now()
         instance.save()
 
         for column_data in columns_data:
