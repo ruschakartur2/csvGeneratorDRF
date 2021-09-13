@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -38,6 +39,7 @@ class Schema(models.Model):
     column_separator = models.CharField(max_length=25)
     string_character = models.CharField(max_length=25)
     modified = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -51,6 +53,7 @@ class SchemaColumn(models.Model):
                                   blank=True,
                                   null=True)
     schema = models.ForeignKey(Schema, on_delete=models.CASCADE, related_name='columns')
+    order = models.IntegerField(null=True, blank=True, default=0)
 
     def __str__(self):
         return self.name

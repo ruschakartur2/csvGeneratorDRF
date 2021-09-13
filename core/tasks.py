@@ -4,7 +4,7 @@ from celery import shared_task
 from celery_progress.backend import ProgressRecorder
 import csv
 
-from core.models import Schema, SchemaColumn, DataSet
+from core.models import SchemaColumn, DataSet
 from faker import Faker
 
 fake = Faker('en_US')
@@ -12,15 +12,17 @@ fake1 = Faker('en_GB')
 
 
 @shared_task(bind=True)
-def generate(self, ds_id, rows, schema, filename,res_filename, parameters=None):
+def generate(self, ds_id, rows, schema, filename, res_filename, parameters=None):
     headers = []
+    columns_name = []
     progress_recorder = ProgressRecorder(self)
     result = 0
     parameters = []
     columns = SchemaColumn.objects.filter(schema=schema)
-    int_params = [0,100]
+    int_params = [0, 100]
     for column in columns:
-        headers.append(column.data_type.name)
+        columns_name.append(column.data_type.name)
+        headers.append(column.name)
         if column.data_type.parameters:
             for parameter in column.data_type.parameters.all():
                 parameters.append(parameter)

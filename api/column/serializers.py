@@ -5,6 +5,7 @@ from core.models import SchemaColumn
 
 
 class SchemaColumnSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
 
     class Meta:
         model = SchemaColumn
